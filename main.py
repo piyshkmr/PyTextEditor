@@ -105,6 +105,7 @@ class PyTextEditor(QMainWindow):
             filename = os.path.basename(filepath)
             # setting window title to filename
             self.setWindowTitle(f"{filename} - PyTextEditor")
+            self.filepath = filepath
 
         except:
             return
@@ -134,6 +135,7 @@ class PyTextEditor(QMainWindow):
     def newFile(self):
         self.setWindowTitle(f"Untiteld - PyTextEditor")
         self.editor.setText("")
+        self.filepath = ""
 
     # align text center 
     def setTextAlignCenter(self):
@@ -168,7 +170,41 @@ class PyTextEditor(QMainWindow):
         elif theme == "Hacker":
             self.setStyleSheet(themes.Hacker)
 
-        
+    def getPopup(self,mssg,icon,buttons):
+        msg = QMessageBox()
+        msg.setWindowTitle("PyTextEditor")
+        msg.setText(mssg)
+        msg.setIcon(icon)
+        msg.setStandardButtons(buttons)
+        msg.buttonClicked.connect(self.msgBtn)
+
+        retval = msg.exec_()
+
+
+    # rename file 
+    def renameFile(self):
+        if self.filepath:
+            # geeting name 
+            name, done = QInputDialog.getText(
+             self, 'Rename file', 'Enter file name:') 
+
+            if done:
+                # replacing old name to new one 
+                dst = str(self.filepath).replace(os.path.basename(self.filepath),f"{name}.txt")
+                os.rename(self.filepath, dst)
+
+                self.filepath = dst
+                self.setWindowTitle(f"{os.path.basename(self.filepath)} - PyTextEditor")
+
+        else:
+            self.getPopup("Save file to rename",QMessageBox.Information,(QMessageBox.Save | QMessageBox.Cancel))
+
+
+    def msgBtn(self,i):
+        if i.text() == "Save":
+            self.saveFile()
+
+
 
 
 # application 

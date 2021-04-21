@@ -48,7 +48,7 @@ def createToolBar(self):
     toolbar.addSeparator()
 
     # setting fontsize box
-    self.fontSizeBox.setValue(20)
+    self.fontSizeBox.setValue(14)
     self.fontSizeBox.valueChanged.connect(self.setFontSize)
     toolbar.addWidget(self.fontSizeBox)
 
