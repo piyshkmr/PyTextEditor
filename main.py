@@ -1,3 +1,11 @@
+""" Docx
+
+author: Piyush Kumar
+mail  : piyushprasad816@gmail.com
+
+"""
+
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon

@@ -98,10 +98,18 @@ def createToolBar(self):
     toolbar.addSeparator()
     toolbar.addSeparator()
 
-    # setting fontfamily box
+    # setting theme box
     self.themeBox.addItems(["Default","Hacker","Monokai","Dracula"])
     self.themeBox.activated.connect(self.setTheme)
     toolbar.addWidget(self.themeBox)
 
+    toolbar.addSeparator()
+    toolbar.addSeparator()
+
+    # clear all action
+    clearAction = QAction(
+        QIcon("./icons/clear.png"), "Clear All", self)
+    clearAction.triggered.connect(self.editor.clear)
+    toolbar.addAction(clearAction)
 
     self.addToolBar(toolbar)
